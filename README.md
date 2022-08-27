@@ -17,11 +17,12 @@ a) Acesse o diretório do projeto e instale os módulos npm
 
     npm install
 
-b) Execute o arquivo getData.js
+### Buscando dados de todas as pools (limitando a 3)
+1) Execute o arquivo getPools.js
 
-    node getData.js
+    node getPools.js
 
-c) Teremos como resultado algo como:
+2) Teremos como resultado algo como:
 
 ```
 {
@@ -47,6 +48,37 @@ c) Teremos como resultado algo como:
   totalValueLockedUSD: '31828129.12294291059460419090365583',
   token0: { symbol: 'WETH' },
   token1: { symbol: 'USDT' }
+}
+```
+
+
+### Buscando dados de uma pool específica
+1) Execute o arquivo getPool.js
+
+    node getPool.js
+
+2) Teremos como resultado algo como:
+
+```
+{
+  id: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640',
+  totalValueLockedUSD: '259104425.6376046791308174836888976',
+  token0Price: '1502.510860262050105623476250156059',
+  token1Price: '0.0006655525936269052142106253544383139',
+  volumeUSD: '266610636215.3607367210078448881418',
+  feesUSD: '133305318.1076803683605039224440979',
+  token0: {
+    id: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+    symbol: 'USDC',
+    name: 'USD Coin',
+    decimals: '6'
+  },
+  token1: {
+    id: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    symbol: 'WETH',
+    name: 'Wrapped Ether',
+    decimals: '18'
+  }
 }
 ```
 
