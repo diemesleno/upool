@@ -19,13 +19,16 @@ query = `
 }
 `
 
-axios.post(URL_ETHEREUM, {query: query})
-    .then((result) => {
-        // console.log(result.data.data);
-        const pools = result.data.data.pools;
+async function main() {
+    const result = await axios.post(URL_ETHEREUM, {query: query});
 
-        pools.forEach(function(pool){
-            console.log(pool);
-        });
+    const pools = result.data.data.pools;
 
-    })
+    pools.forEach(function(pool){
+        console.log(pool);
+    });
+
+
+}
+
+main()
