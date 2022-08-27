@@ -23,7 +23,7 @@ b) Execute o arquivo getData.js
 
 c) Teremos como resultado algo como:
 
-```json
+```
 {
   id: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640',
   volumeUSD: '266607022353.9382999745482821537591',
