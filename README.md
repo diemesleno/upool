@@ -23,6 +23,7 @@ a) Acesse o diretório do projeto e instale os módulos npm
   - getPoolsRedes.js -> Busca as 3 melhores pools de cada uma das redes;
   - getPool.js -> Busca dados de uma pool específica;
   - getPools.js -> Busca as 3 melhores pools da rede Ethereum;
+  - getPoolDetail.js -> Busca os detalhes de uma pool específica;
 
 ## Para executar qualquer um dos scripts
   
