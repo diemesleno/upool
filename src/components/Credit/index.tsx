@@ -30,6 +30,14 @@ const Credit = () => {
             </TYPE.main>
           </OutlineCard>
         </AutoColumn>
+        <AutoColumn gap="lg">
+          <OutlineCard>
+            <TYPE.main>Feedback e Sugestões</TYPE.main>
+            <GreyBadge fontSize="12px">
+              <TYPE.main>info@orangehat.wtf</TYPE.main>
+            </GreyBadge>
+          </OutlineCard>
+        </AutoColumn>
       </WarningWrapper>
     </PageWrapper>
   )

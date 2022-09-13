@@ -59,7 +59,7 @@ const Marginer = styled.div`
   margin-top: 5rem;
 `
 
-const MargemMinima = styled.div`
+const MargemTop = styled.div`
   margin-top: 1rem;
 `
 
@@ -161,7 +161,7 @@ export default function App() {
                 <Route exact strict path="/:networkID?/tokens" component={TokensOverview} />
                 <Route exact path="/:networkID?" component={Home} />
               </Switch>
-              <MargemMinima />
+              <MargemTop />
               <Credit />
             </BodyWrapper>
           )}
