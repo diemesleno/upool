@@ -54,6 +54,10 @@ export interface PoolData {
   // token amounts
   tvlToken0: number
   tvlToken1: number
+
+  //extras
+  multiplier: number
+  volumeAverage: number
 }
 
 export type PoolChartEntry = {

@@ -78,6 +78,8 @@ interface PoolFields {
   totalValueLockedToken0: string
   totalValueLockedToken1: string
   totalValueLockedUSD: string
+  multiplier: string
+  volumeAverage: string
 }
 
 interface PoolDataResponse {
@@ -195,6 +197,24 @@ export function usePoolDatas(
     const tvlToken1 = current ? parseFloat(current.totalValueLockedToken1) : 0
 
     const feeTier = current ? parseInt(current.feeTier) : 0
+    
+    // Extras
+    const volumeAverage = current ? volumeUSDWeek / 7 : 0
+    const result: number = volumeUSD / tvlUSD
+    let multiplier: number | string = 0
+
+    if (current.feeTier === '1000') {
+      multiplier = result * 20
+    } else if (current.feeTier === '3000') {
+      multiplier = result * 6
+    } else if (current.feeTier === '500') {
+      multiplier = result
+    } else if (current.feeTier === '100') {
+      multiplier = result
+    }
+
+    multiplier = parseFloat(multiplier.toString()).toPrecision(3).toString()
+  
 
     if (current) {
       accum[address] = {
@@ -226,6 +246,8 @@ export function usePoolDatas(
         tvlUSDChange,
         tvlToken0,
         tvlToken1,
+        multiplier: parseFloat(multiplier),
+        volumeAverage: volumeAverage,
       }
     }
 

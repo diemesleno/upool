@@ -40,10 +40,6 @@ const getMultiplier = (volumeUSD: number, tvlUSD: number, feeTier: number) => {
   return parseFloat(multiplier.toString()).toPrecision(3)
 }
 
-const getVolumeDailyAverage = (volume7d: number) => {
-  return volume7d / 7
-}
-
 const Wrapper = styled(DarkGreyCard)`
   width: 100%;
 `
@@ -53,7 +49,7 @@ const ResponsiveGrid = styled.div`
   grid-gap: 1em;
   align-items: center;
 
-  grid-template-columns: 20px 0.5fr repeat(5, 0.2fr);
+  grid-template-columns: 20px 0.5fr repeat(5, 0.3fr);
 
   @media screen and (max-width: 900px) {
     grid-template-columns: 20px 1.5fr repeat(2, 1fr);
@@ -90,6 +86,8 @@ const SORT_FIELD = {
   volumeUSD: 'volumeUSD',
   tvlUSD: 'tvlUSD',
   volumeUSDWeek: 'volumeUSDWeek',
+  volumeAverage: 'volumeAverage',
+  multiplier: 'multiplier',
 }
 
 const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
@@ -120,10 +118,10 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
           {formatDollarAmount(poolData.volumeUSDWeek)}
         </Label>
         <Label end={1} fontWeight={400}>
-          {formatDollarAmount(getVolumeDailyAverage(poolData.volumeUSDWeek))}
+          {formatDollarAmount(poolData.volumeAverage)}
         </Label>
         <Label end={1} fontWeight={400}>
-          {getMultiplier(poolData.volumeUSD, poolData.tvlUSD, poolData.feeTier)}
+          {poolData.multiplier}
         </Label>
       </ResponsiveGrid>
     </LinkWrapper>
@@ -205,12 +203,12 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
             <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSDWeek)}>
               Volume 7D {arrow(SORT_FIELD.volumeUSDWeek)}
             </ClickableText>
-            <Label color={theme.text2} end={1}>
-              Volume Average
-            </Label>
-            <Label color={theme.text2} end={1}>
-              Multiplier
-            </Label>
+            <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeAverage)}>
+              Volume Average {arrow(SORT_FIELD.volumeAverage)}
+            </ClickableText>
+            <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.multiplier)}>
+              Multiplier {arrow(SORT_FIELD.multiplier)}
+            </ClickableText>
           </ResponsiveGrid>
           <Break />
           {sortedPools.map((poolData, i) => {
