@@ -95,8 +95,6 @@ const SORT_FIELD = {
 const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
   const [activeNetwork] = useActiveNetworkVersion()
 
-  console.log(poolData.feeTier)
-
   return (
     <LinkWrapper to={networkPrefix(activeNetwork) + 'pools/' + poolData.address}>
       <ResponsiveGrid>
