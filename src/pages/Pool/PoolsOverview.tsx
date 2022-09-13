@@ -7,7 +7,6 @@ import { useAllPoolData, usePoolDatas } from 'state/pools/hooks'
 import { notEmpty } from 'utils'
 import { useSavedPools } from 'state/user/hooks'
 import { DarkGreyCard } from 'components/Card'
-import TopPoolMovers from 'components/pools/TopPoolMovers'
 
 export default function PoolPage() {
   useEffect(() => {
