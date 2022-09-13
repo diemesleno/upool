@@ -4,6 +4,7 @@ Informações:
 
 Nunca fiz uso de *GraphQL* mas estou estudando
 através da [Uniswap V3 Subgraph](https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3)
+e podemos testar as consultas no [Playground do The Graph](https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3)
 
 Aparentemente, é possível realizar as mesmas
 consultas e aplicações mais avançadas usando o
