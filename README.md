@@ -2,39 +2,34 @@
 
 Informações:
 
-Nunca fiz uso de *GraphQL* mas estou estudando
-através da [Uniswap V3 Subgraph](https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3)
-e podemos testar as consultas no [Playground do The Graph](https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3)
-
-Aparentemente, é possível realizar as mesmas
-consultas e aplicações mais avançadas usando o
-[SDK](https://docs.uniswap.org/sdk/introduction) da Uniswap.
+Este projeto é uma modificação do projeto original da [Uniswap](https://github.com/Uniswap/v3-info)
 
 ## Instruções de execução:
 
-a) Acesse o diretório do projeto e instale os módulos npm
 
-    cd upool
-
-    npm install
-
-
-## Scripts de teste existentes
-
-  - getPoolsRedes.js -> Busca as 3 melhores pools de cada uma das redes;
-  - getPool.js -> Busca dados de uma pool específica;
-  - getPools.js -> Busca as 3 melhores pools da rede Ethereum;
-  - getPoolDetail.js -> Busca os detalhes de uma pool específica;
-
-## Para executar qualquer um dos scripts
-  
+a) Clone o projeto
   ```
-  node nome-do-script.js
+  git clone https://github.com/diemesleno/upool.git
   ```
+b) Acesse o diretório do projeto
+  ```
+  cd upool
+  ```
+c) Instale os módulos com o yarn
+  ```
+  yarn
+  ```
+d) Execute
+  ```
+  yarn start
+  ```
+## Versão online
 
-*Observações versão 0.2:* 
+Você encontra uma versão de testes online [aqui](https://pools.orangehat.wtf)
 
-- Já conseguimos trazer os mesmos dados de todas as redes (Ethereum, Polygon, Optimism e Arbitrum).
-- O TVL retornado nos dados é o mesmo da app. Mas precisamos ver como fazer para encontrar o Volume 24h. 
-- Seria interessante encontrar a média do volume dos últimos 7 dias.
+## Doe e suporte o projeto
 
+Redes: [Polygon, BSC ou Ethereum]
+```
+0x4cb1F59c8ba09fED2BCE70943d2ad5dEc599e7d8
+```
