@@ -40,6 +40,10 @@ const getMultiplier = (volumeUSD: number, tvlUSD: number, feeTier: number) => {
   return parseFloat(multiplier.toString()).toPrecision(3)
 }
 
+const getVolumeDailyAverage = (volume7d: number) => {
+  return volume7d / 7
+}
+
 const Wrapper = styled(DarkGreyCard)`
   width: 100%;
 `
@@ -49,7 +53,7 @@ const ResponsiveGrid = styled.div`
   grid-gap: 1em;
   align-items: center;
 
-  grid-template-columns: 20px 3.5fr repeat(4, 1fr);
+  grid-template-columns: 20px 0.5fr repeat(5, 0.2fr);
 
   @media screen and (max-width: 900px) {
     grid-template-columns: 20px 1.5fr repeat(2, 1fr);
@@ -116,6 +120,9 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
         </Label>
         <Label end={1} fontWeight={400}>
           {formatDollarAmount(poolData.volumeUSDWeek)}
+        </Label>
+        <Label end={1} fontWeight={400}>
+          {formatDollarAmount(getVolumeDailyAverage(poolData.volumeUSDWeek))}
         </Label>
         <Label end={1} fontWeight={400}>
           {getMultiplier(poolData.volumeUSD, poolData.tvlUSD, poolData.feeTier)}
@@ -200,6 +207,9 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
             <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSDWeek)}>
               Volume 7D {arrow(SORT_FIELD.volumeUSDWeek)}
             </ClickableText>
+            <Label color={theme.text2} end={1}>
+              Volume Average
+            </Label>
             <Label color={theme.text2} end={1}>
               Multiplier
             </Label>
