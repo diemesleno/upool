@@ -1,5 +1,5 @@
 import React from 'react'
-import UpoolLogo from '../../assets/images/upool.png'
+import UpoolLoad from '../../assets/images/upool_load.png'
 import styled, { keyframes, css } from 'styled-components'
 
 const rotate = keyframes`
@@ -69,10 +69,11 @@ const Wrapper = styled.div<{ fill: number; height?: string }>`
         `}
 `
 
+//72px
 const AnimatedImg = styled.div`
   animation: ${pulse} 800ms linear infinite;
   & > * {
-    width: 72px;
+    width: 144px;
   }
 `
 
@@ -80,7 +81,7 @@ export const LocalLoader = ({ fill }: { fill: boolean }) => {
   return (
     <Wrapper fill={fill ? 1 : 0}>
       <AnimatedImg>
-        <img src={UpoolLogo} alt="loading-icon" />
+        <img src={UpoolLoad} alt="loading-icon" />
       </AnimatedImg>
     </Wrapper>
   )

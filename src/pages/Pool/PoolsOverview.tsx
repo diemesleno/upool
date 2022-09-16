@@ -1,14 +1,20 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, Suspense, useState, useMemo } from 'react'
 import { PageWrapper } from 'pages/styled'
 import { AutoColumn } from 'components/Column'
 import { TYPE } from 'theme'
+import { LocalLoader } from 'components/Loader'
 import PoolTable from 'components/pools/PoolTable'
 import { useAllPoolData } from 'state/pools/hooks'
 import { notEmpty } from 'utils'
 
 export default function PoolPage() {
+  // useEffect(() => {
+  //   window.scrollTo(0, 0)
+  // }, [])
+  // pretend load buffer
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
-    window.scrollTo(0, 0)
+    setTimeout(() => setLoading(false), 1300)
   }, [])
 
   // get all the pool datas that exist
@@ -19,11 +25,17 @@ export default function PoolPage() {
       .filter(notEmpty)
   }, [allPoolData])
   return (
-    <PageWrapper>
-      <AutoColumn gap="lg">
-        <TYPE.main>Todas Pools</TYPE.main>
-        <PoolTable poolDatas={poolDatas} />
-      </AutoColumn>
-    </PageWrapper>
+    <Suspense fallback={null}>
+      {loading ? (
+        <LocalLoader fill={true} />
+      ) : (
+        <PageWrapper>
+          <AutoColumn gap="lg">
+            <TYPE.main>Todas Pools</TYPE.main>
+            <PoolTable poolDatas={poolDatas} />
+          </AutoColumn>
+        </PageWrapper>
+      )}
+    </Suspense>
   )
 }

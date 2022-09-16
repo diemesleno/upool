@@ -1,9 +1,10 @@
-import React, { useCallback, useState, useMemo, useEffect } from 'react'
+import React, { useCallback, Suspense, useState, useMemo, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { TYPE } from 'theme'
 import { DarkGreyCard, GreyBadge } from 'components/Card'
-import Loader, { LoadingRows } from 'components/Loader'
+import { LoadingRows } from 'components/Loader'
+import { LocalLoader } from 'components/Loader'
 import { AutoColumn } from 'components/Column'
 import { RowFixed } from 'components/Row'
 import { formatDollarAmount } from 'utils/numbers'
@@ -69,39 +70,49 @@ const SORT_FIELD = {
 
 const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
   const [activeNetwork] = useActiveNetworkVersion()
-
+  // pretend load buffer
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1300)
+  }, [])
   return (
-    <LinkWrapper to={networkPrefix(activeNetwork) + 'pools/' + poolData.address}>
-      <ResponsiveGrid>
-        <Label fontWeight={400}>{index + 1}</Label>
-        <Label fontWeight={400}>
-          <RowFixed>
-            <DoubleCurrencyLogo address0={poolData.token0.address} address1={poolData.token1.address} />
-            <TYPE.label ml="8px">
-              {poolData.token0.symbol}/{poolData.token1.symbol}
-            </TYPE.label>
-            <GreyBadge ml="10px" fontSize="14px">
-              {feeTierPercent(poolData.feeTier)}
-            </GreyBadge>
-          </RowFixed>
-        </Label>
-        <Label end={1} fontWeight={400}>
-          {formatDollarAmount(poolData.tvlUSD)}
-        </Label>
-        <Label end={1} fontWeight={400}>
-          {formatDollarAmount(poolData.volumeUSD)}
-        </Label>
-        <Label end={1} fontWeight={400}>
-          {formatDollarAmount(poolData.volumeUSDWeek)}
-        </Label>
-        <Label end={1} fontWeight={400}>
-          {formatDollarAmount(poolData.volumeAverage)}
-        </Label>
-        <Label end={1} fontWeight={400}>
-          {poolData.multiplier}
-        </Label>
-      </ResponsiveGrid>
-    </LinkWrapper>
+    <Suspense fallback={null}>
+      {loading ? (
+        <LocalLoader fill={true} />
+      ) : (
+        <LinkWrapper to={networkPrefix(activeNetwork) + 'pools/' + poolData.address}>
+          <ResponsiveGrid>
+            <Label fontWeight={400}>{index + 1}</Label>
+            <Label fontWeight={400}>
+              <RowFixed>
+                <DoubleCurrencyLogo address0={poolData.token0.address} address1={poolData.token1.address} />
+                <TYPE.label ml="8px">
+                  {poolData.token0.symbol}/{poolData.token1.symbol}
+                </TYPE.label>
+                <GreyBadge ml="10px" fontSize="14px">
+                  {feeTierPercent(poolData.feeTier)}
+                </GreyBadge>
+              </RowFixed>
+            </Label>
+            <Label end={1} fontWeight={400}>
+              {formatDollarAmount(poolData.tvlUSD)}
+            </Label>
+            <Label end={1} fontWeight={400}>
+              {formatDollarAmount(poolData.volumeUSD)}
+            </Label>
+            <Label end={1} fontWeight={400}>
+              {formatDollarAmount(poolData.volumeUSDWeek)}
+            </Label>
+            <Label end={1} fontWeight={400}>
+              {formatDollarAmount(poolData.volumeAverage)}
+            </Label>
+            <Label end={1} fontWeight={400}>
+              {poolData.multiplier}
+            </Label>
+          </ResponsiveGrid>
+        </LinkWrapper>
+      )}
+    </Suspense>
   )
 }
 
@@ -110,6 +121,11 @@ const MAX_ITEMS = 5
 export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDatas: PoolData[]; maxItems?: number }) {
   // theming
   const theme = useTheme()
+  // pretend load buffer
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1300)
+  }, [])
 
   // for sorting
   const [sortField, setSortField] = useState(SORT_FIELD.volumeUSD) //tvlUSD
@@ -159,80 +175,73 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
   )
 
   if (!poolDatas) {
-    return <Loader />
+    return <LocalLoader fill={true} />
   }
 
   return (
-    <Wrapper>
-      {sortedPools.length > 0 ? (
-        <AutoColumn gap="16px">
-          <ResponsiveGrid>
-            <Label color={theme.text2}>#</Label>
-            <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.feeTier)}>
-              Pool {arrow(SORT_FIELD.feeTier)}
-            </ClickableText>
-            <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
-              TVL {arrow(SORT_FIELD.tvlUSD)}
-            </ClickableText>
-            <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSD)}>
-              Volume 24H {arrow(SORT_FIELD.volumeUSD)}
-            </ClickableText>
-            <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSDWeek)}>
-              Volume 7D {arrow(SORT_FIELD.volumeUSDWeek)}
-            </ClickableText>
-            <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeAverage)}>
-              Volume Average {arrow(SORT_FIELD.volumeAverage)}
-            </ClickableText>
-            <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.multiplier)}>
-              Multiplier {arrow(SORT_FIELD.multiplier)}
-            </ClickableText>
-          </ResponsiveGrid>
-          <Break />
-          {sortedPools.map((poolData, i) => {
-            if (poolData) {
-              return (
-                <React.Fragment key={i}>
-                  <DataRow index={(page - 1) * MAX_ITEMS + i} poolData={poolData} />
-                  <Break />
-                </React.Fragment>
-              )
-            }
-            return null
-          })}
-          <PageButtons>
-            <div
-              onClick={() => {
-                setPage(page === 1 ? page : page - 1)
-              }}
-            >
-              <Arrow faded={page === 1 ? true : false}>←</Arrow>
-            </div>
-            <TYPE.body>{'Page ' + page + ' of ' + maxPage}</TYPE.body>
-            <div
-              onClick={() => {
-                setPage(page === maxPage ? page : page + 1)
-              }}
-            >
-              <Arrow faded={page === maxPage ? true : false}>→</Arrow>
-            </div>
-          </PageButtons>
-        </AutoColumn>
+    <Suspense fallback={null}>
+      {loading ? (
+        <LocalLoader fill={true} />
       ) : (
-        <LoadingRows>
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-        </LoadingRows>
+        <Wrapper>
+          {sortedPools.length > 0 ? (
+            <AutoColumn gap="16px">
+              <ResponsiveGrid>
+                <Label color={theme.text2}>#</Label>
+                <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.feeTier)}>
+                  Pool {arrow(SORT_FIELD.feeTier)}
+                </ClickableText>
+                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
+                  TVL {arrow(SORT_FIELD.tvlUSD)}
+                </ClickableText>
+                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSD)}>
+                  Volume 24H {arrow(SORT_FIELD.volumeUSD)}
+                </ClickableText>
+                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSDWeek)}>
+                  Volume 7D {arrow(SORT_FIELD.volumeUSDWeek)}
+                </ClickableText>
+                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeAverage)}>
+                  Volume Average {arrow(SORT_FIELD.volumeAverage)}
+                </ClickableText>
+                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.multiplier)}>
+                  Multiplier {arrow(SORT_FIELD.multiplier)}
+                </ClickableText>
+              </ResponsiveGrid>
+              <Break />
+              {sortedPools.map((poolData, i) => {
+                if (poolData) {
+                  return (
+                    <React.Fragment key={i}>
+                      <DataRow index={(page - 1) * MAX_ITEMS + i} poolData={poolData} />
+                      <Break />
+                    </React.Fragment>
+                  )
+                }
+                return null
+              })}
+              <PageButtons>
+                <div
+                  onClick={() => {
+                    setPage(page === 1 ? page : page - 1)
+                  }}
+                >
+                  <Arrow faded={page === 1 ? true : false}>←</Arrow>
+                </div>
+                <TYPE.body>{'Page ' + page + ' of ' + maxPage}</TYPE.body>
+                <div
+                  onClick={() => {
+                    setPage(page === maxPage ? page : page + 1)
+                  }}
+                >
+                  <Arrow faded={page === maxPage ? true : false}>→</Arrow>
+                </div>
+              </PageButtons>
+            </AutoColumn>
+          ) : (
+            <LocalLoader fill={true} />
+          )}
+        </Wrapper>
       )}
-    </Wrapper>
+    </Suspense>
   )
 }
