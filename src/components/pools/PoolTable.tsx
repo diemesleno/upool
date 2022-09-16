@@ -17,29 +17,6 @@ import useTheme from 'hooks/useTheme'
 import { networkPrefix } from 'utils/networkPrefix'
 import { useActiveNetworkVersion } from 'state/application/hooks'
 
-const getMultiplier = (volumeUSD: number, tvlUSD: number, feeTier: number) => {
-  let multiplier = 0
-  const result = volumeUSD / tvlUSD
-
-  /*
-    1000 => 1%
-    3000 => 0.3%
-    500  => 0.05%
-    100  => 0.01%
-  */
-
-  if (feeTier === 1000) {
-    multiplier = result * 20
-  } else if (feeTier === 3000) {
-    multiplier = result * 6
-  } else if (feeTier === 500) {
-    multiplier = result
-  } else if (feeTier === 100) {
-    multiplier = result
-  }
-  return parseFloat(multiplier.toString()).toPrecision(3)
-}
-
 const Wrapper = styled(DarkGreyCard)`
   width: 100%;
 `
