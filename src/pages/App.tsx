@@ -7,7 +7,6 @@ import Popups from '../components/Popups'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import PoolsOverview from './Pool/PoolsOverview'
 import PoolPage from './Pool/PoolPage'
-import MultiplePools from './Pool/MultiplePools'
 import { RedirectInvalidToken } from './Token/redirects'
 import TokensOverview from './Token/TokensOverview'
 import { LocalLoader } from 'components/Loader'
@@ -160,7 +159,6 @@ export default function App() {
                 <Route exact strict path="/:networkID?/tokens/:address" component={RedirectInvalidToken} />
                 <Route exact strict path="/:networkID?/tokens" component={TokensOverview} />
                 <Route exact path="/:networkID?" component={PoolsOverview} />
-                <Route exact path="/multiple/pools" component={MultiplePools} />
               </Switch>
               <MargemTop />
               <Credit />
