@@ -4,7 +4,6 @@ import { darken } from 'polished'
 import styled from 'styled-components'
 import OrangeHatLogo from '../../assets/images/orangehat_logo.png'
 import Row, { RowFixed } from '../Row'
-import NetworkDropdown from 'components/Menu/NetworkDropdown'
 import { useActiveNetworkVersion } from 'state/application/hooks'
 import { networkPrefix } from 'utils/networkPrefix'
 import {
@@ -126,8 +125,6 @@ export const StyledMenuButton = styled.button`
 `
 
 export default function Header() {
-  const [activeNewtork] = useActiveNetworkVersion()
-
   return (
     <HeaderFrame>
       <HeaderRow>
@@ -172,7 +169,6 @@ export default function Header() {
           >
             Celo Pools
           </StyledNavLink>
-          <NetworkDropdown />
         </HeaderLinks>
       </HeaderRow>
     </HeaderFrame>
