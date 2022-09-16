@@ -4,7 +4,6 @@ import { darken } from 'polished'
 import styled from 'styled-components'
 import OrangeHatLogo from '../../assets/images/orangehat_logo.png'
 import Row, { RowFixed } from '../Row'
-import { useActiveNetworkVersion } from 'state/application/hooks'
 import { networkPrefix } from 'utils/networkPrefix'
 import {
   ArbitrumNetworkInfo,
