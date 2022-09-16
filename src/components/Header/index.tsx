@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { darken } from 'polished'
 import styled from 'styled-components'
-import OrangeHatLogo from '../../assets/images/orangehat_logo.png'
+import UpoolLogo from '../../assets/images/upool_logo.png'
 import Row, { RowFixed } from '../Row'
 import { networkPrefix } from 'utils/networkPrefix'
 import {
@@ -128,9 +128,7 @@ export default function Header() {
     <HeaderFrame>
       <HeaderRow>
         <UniIcon>
-          <a href="https://orangehat.wtf" target="_blank" rel="noopener noreferrer">
-            <img width={'100%'} src={OrangeHatLogo} alt="Orange Hat" />
-          </a>
+          <img width={'100%'} src={UpoolLogo} alt="uPool" />
         </UniIcon>
         <HeaderLinks>
           <StyledNavLink

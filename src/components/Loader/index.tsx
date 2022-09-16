@@ -1,5 +1,5 @@
 import React from 'react'
-import OhatLogo from '../../assets/images/ohat_logo.png'
+import UpoolLogo from '../../assets/images/upool.png'
 import styled, { keyframes, css } from 'styled-components'
 
 const rotate = keyframes`
@@ -80,7 +80,7 @@ export const LocalLoader = ({ fill }: { fill: boolean }) => {
   return (
     <Wrapper fill={fill ? 1 : 0}>
       <AnimatedImg>
-        <img src={OhatLogo} alt="loading-icon" />
+        <img src={UpoolLogo} alt="loading-icon" />
       </AnimatedImg>
     </Wrapper>
   )
