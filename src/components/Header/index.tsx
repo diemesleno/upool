@@ -137,7 +137,7 @@ export default function Header() {
           <StyledNavLink
             id={`stake-nav-link`}
             to={networkPrefix(EthereumNetworkInfo) + 'pools'}
-            isActive={(match, { pathname }) => pathname === '/'}
+            isActive={(match, { pathname }) => ['/', '/pools'].indexOf(pathname) > -1}
           >
             Ethereum Pools
           </StyledNavLink>
