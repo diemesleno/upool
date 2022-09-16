@@ -200,7 +200,7 @@ export function usePoolDatas(
 
     // Extras
     const volumeAverage = current ? volumeUSDWeek / 7 : 0
-    console.log('Volume Average: ' + volumeAverage)
+    //console.log('Volume Average: ' + volumeAverage)
     const result: number = volumeUSD / tvlUSD
     let multiplier: number | string = 0
 
