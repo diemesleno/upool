@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { TYPE } from 'theme'
 import { DarkGreyCard, GreyBadge } from 'components/Card'
-import { LoadingRows } from 'components/Loader'
 import { LocalLoader } from 'components/Loader'
 import { AutoColumn } from 'components/Column'
 import { RowFixed } from 'components/Row'
@@ -119,6 +118,7 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
 const MAX_ITEMS = 5
 
 export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDatas: PoolData[]; maxItems?: number }) {
+  const [activeNetwork] = useActiveNetworkVersion()
   // theming
   const theme = useTheme()
   // pretend load buffer
@@ -180,6 +180,7 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
 
   return (
     <Suspense fallback={null}>
+      <Label fontWeight={400}>Pools da rede {activeNetwork.name}</Label>
       {loading ? (
         <LocalLoader fill={true} />
       ) : (

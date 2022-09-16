@@ -8,9 +8,6 @@ import { useAllPoolData } from 'state/pools/hooks'
 import { notEmpty } from 'utils'
 
 export default function PoolPage() {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0)
-  // }, [])
   // pretend load buffer
   const [loading, setLoading] = useState(true)
   useEffect(() => {
@@ -19,6 +16,7 @@ export default function PoolPage() {
 
   // get all the pool datas that exist
   const allPoolData = useAllPoolData()
+
   const poolDatas = useMemo(() => {
     return Object.values(allPoolData)
       .map((p) => p.data)
@@ -31,7 +29,6 @@ export default function PoolPage() {
       ) : (
         <PageWrapper>
           <AutoColumn gap="lg">
-            <TYPE.main>Todas Pools</TYPE.main>
             <PoolTable poolDatas={poolDatas} />
           </AutoColumn>
         </PageWrapper>
