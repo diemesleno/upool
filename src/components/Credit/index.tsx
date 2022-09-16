@@ -23,7 +23,7 @@ const Credit = () => {
           <OutlineCard>
             <TYPE.main>Doe e ajude a suportar o projeto</TYPE.main>
             <TYPE.main>&nbsp;</TYPE.main>
-            <TYPE.main fontSize="12px">Redes: [Polygon, BSC ou Ethereum]</TYPE.main>
+            <TYPE.main fontSize="12px">Redes: [Ethereum, Polygon, Optimism, Arbitrum ou Celo]</TYPE.main>
             <GreyBadge fontSize="12px">
               <TYPE.main>0x4cb1F59c8ba09fED2BCE70943d2ad5dEc599e7d8</TYPE.main>
             </GreyBadge>
@@ -40,7 +40,7 @@ const Credit = () => {
             <TYPE.main>Feedback e Sugestões</TYPE.main>
             <TYPE.main>&nbsp;</TYPE.main>
             <GreyBadge fontSize="12px">
-              <TYPE.main>info@orangehat.wtf</TYPE.main>
+              <TYPE.main>diemesleno@gmail.com</TYPE.main>
             </GreyBadge>
           </OutlineCard>
         </AutoColumn>
