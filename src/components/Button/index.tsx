@@ -311,6 +311,7 @@ const ButtonStyle = styled.button`
   border-radius: 12px;
   padding: 6px 10px;
   cursor: pointer;
+  width: fit-content;
 `
 
 const DonateButtonAnimation = keyframes`
@@ -334,6 +335,7 @@ export const DangerButton = styled(ButtonStyle)`
   animation-iteration-count: infinite;
   background-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   padding: 4px;
+  width: fit-content;
 
   & > span {
     display: inline-block;
@@ -348,20 +350,7 @@ export const DangerButton = styled(ButtonStyle)`
     color: black;
     padding: 4px 8px;
     background: white;
-  }
-`
-
-export const Gitcoin = styled.div`
-  position: relative;
-
-  & p {
-    font-size: 0.7em;
-    color: white;
-    margin: 0;
-    position: absolute;
-    width: 250px;
-    right: 0;
-    margin-top: 8px;
+    width: fit-content;
   }
 `
 

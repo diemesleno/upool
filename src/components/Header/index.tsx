@@ -12,7 +12,19 @@ import {
   OptimismNetworkInfo,
   CeloNetworkInfo,
 } from 'constants/networks'
-import { Gitcoin, DangerButton } from '../Button'
+import { DangerButton } from '../Button'
+
+const NavbarContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgb(0, 0, 0, 0.9);
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  z-index: 9999;
+`
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -126,56 +138,52 @@ export const StyledMenuButton = styled.button`
 
 export default function Header() {
   return (
-    <HeaderFrame>
-      <HeaderRow>
-        <UniIcon>
-          <img width={'100%'} src={UpoolLogo} alt="uPool" />
-        </UniIcon>
-        <HeaderLinks>
-          <StyledNavLink
-            id={`stake-nav-link`}
-            to={networkPrefix(EthereumNetworkInfo) + 'pools'}
-            isActive={(match, { pathname }) => ['/', '/pools'].indexOf(pathname) > -1}
-          >
-            Ethereum Pools
-          </StyledNavLink>
-          <StyledNavLink
-            id={`stake-nav-link`}
-            to={networkPrefix(PolygonNetworkInfo) + 'pools'}
-            isActive={(match, { pathname }) => pathname === '/polygon/pools'}
-          >
-            Polygon Pools
-          </StyledNavLink>
-          <StyledNavLink
-            id={`stake-nav-link`}
-            to={networkPrefix(OptimismNetworkInfo) + 'pools'}
-            isActive={(match, { pathname }) => pathname === '/optimism/pools'}
-          >
-            Optimism Pools
-          </StyledNavLink>
-          <StyledNavLink
-            id={`stake-nav-link`}
-            to={networkPrefix(ArbitrumNetworkInfo) + 'pools'}
-            isActive={(match, { pathname }) => pathname === '/arbitrum/pools'}
-          >
-            Arbitrum Pools
-          </StyledNavLink>
-          <StyledNavLink
-            id={`stake-nav-link`}
-            to={networkPrefix(CeloNetworkInfo) + 'pools'}
-            isActive={(match, { pathname }) => pathname === '/celo/pools'}
-          >
-            Celo Pools
-          </StyledNavLink>
-        </HeaderLinks>
-      </HeaderRow>
+    <NavbarContainer>
+      <UniIcon>
+        <img width={'100%'} src={UpoolLogo} alt="uPool" />
+      </UniIcon>
+      <HeaderLinks>
+        <StyledNavLink
+          id={`stake-nav-link`}
+          to={networkPrefix(EthereumNetworkInfo) + 'pools'}
+          isActive={(match, { pathname }) => ['/', '/pools'].indexOf(pathname) > -1}
+        >
+          Ethereum Pools
+        </StyledNavLink>
+        <StyledNavLink
+          id={`stake-nav-link`}
+          to={networkPrefix(PolygonNetworkInfo) + 'pools'}
+          isActive={(match, { pathname }) => pathname === '/polygon/pools'}
+        >
+          Polygon Pools
+        </StyledNavLink>
+        <StyledNavLink
+          id={`stake-nav-link`}
+          to={networkPrefix(OptimismNetworkInfo) + 'pools'}
+          isActive={(match, { pathname }) => pathname === '/optimism/pools'}
+        >
+          Optimism Pools
+        </StyledNavLink>
+        <StyledNavLink
+          id={`stake-nav-link`}
+          to={networkPrefix(ArbitrumNetworkInfo) + 'pools'}
+          isActive={(match, { pathname }) => pathname === '/arbitrum/pools'}
+        >
+          Arbitrum Pools
+        </StyledNavLink>
+        <StyledNavLink
+          id={`stake-nav-link`}
+          to={networkPrefix(CeloNetworkInfo) + 'pools'}
+          isActive={(match, { pathname }) => pathname === '/celo/pools'}
+        >
+          Celo Pools
+        </StyledNavLink>
+      </HeaderLinks>
       <a href="https://simula.orangehat.wtf" target="_blank" rel="noreferrer">
-        <Gitcoin>
-          <DangerButton>
-            <span>Simular Pool</span>
-          </DangerButton>
-        </Gitcoin>
+        <DangerButton>
+          <span>Simular Pool</span>
+        </DangerButton>
       </a>
-    </HeaderFrame>
+    </NavbarContainer>
   )
 }
