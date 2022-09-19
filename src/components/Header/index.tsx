@@ -12,7 +12,7 @@ import {
   OptimismNetworkInfo,
   CeloNetworkInfo,
 } from 'constants/networks'
-import { ButtonUPOOLGradient } from '../Button'
+import { Gitcoin, DangerButton } from '../Button'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -169,11 +169,13 @@ export default function Header() {
           </StyledNavLink>
         </HeaderLinks>
       </HeaderRow>
-      <ButtonUPOOLGradient>
-        <a href="https://simula.orangehat.wtf" target="_blank" rel="noreferrer">
-          Simular Pool
-        </a>
-      </ButtonUPOOLGradient>
+      <a href="https://simula.orangehat.wtf" target="_blank" rel="noreferrer">
+        <Gitcoin>
+          <DangerButton>
+            <span>Simular Pool</span>
+          </DangerButton>
+        </Gitcoin>
+      </a>
     </HeaderFrame>
   )
 }
