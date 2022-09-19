@@ -184,6 +184,28 @@ export const ButtonUNIGradient = styled(ButtonPrimary)`
   }
 `
 
+export const ButtonUPOOLGradient = styled(ButtonPrimary)`
+  padding: 4px 8px;
+  height: 36px;
+  font-weight: 500;
+  background-color: ${({ theme }) => lighten(0.5, theme.green1)};
+  color: ${({ theme }) => theme.green1};
+  width: fit-content;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  white-space: no-wrap;
+  :hover {
+    opacity: 0.8;
+  }
+  :active {
+    opacity: 0.9;
+  }
+  &:hover {
+    background-color: ${({ theme }) => lighten(0.5, theme.green1)};
+  }
+`
+
 export const ButtonOutlined = styled(Base)`
   border: 1px solid ${({ theme }) => theme.bg2};
   background-color: transparent;
