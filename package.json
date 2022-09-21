@@ -4,13 +4,13 @@
   "homepage": ".",
   "private": true,
   "devDependencies": {
+    "@emotion/core": "^11.0.0",
+    "@ethersproject/experimental": "^5.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@emotion/core": "^11.0.0",
-    "@ethersproject/experimental": "^5.0.1",
     "@popperjs/core": "^2.4.4",
     "@reach/dialog": "^0.10.3",
     "@reach/portal": "^0.10.3",
@@ -149,6 +149,7 @@
     "numeral": "^2.0.6",
     "react-hot-keys": "^2.6.2",
     "react-hotkeys": "^2.0.0",
+    "react-tooltip": "^4.2.21",
     "recharts": "^2.0.9",
     "uifx": "^2.0.7"
   }

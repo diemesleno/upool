@@ -16,6 +16,7 @@ import { POOL_HIDE } from '../../constants/index'
 import useTheme from 'hooks/useTheme'
 import { networkPrefix } from 'utils/networkPrefix'
 import { useActiveNetworkVersion } from 'state/application/hooks'
+import ReactTooltip from 'react-tooltip'
 
 const Wrapper = styled(DarkGreyCard)`
   width: 100%;
@@ -58,6 +59,15 @@ const LinkWrapper = styled(Link)`
   }
 `
 
+const SpanSmall = styled(TYPE.small)`
+  display: block;
+  color: white;
+  font-variant-numeric: tabular-nums;
+  @media screen and (max-width: 640px) {
+    font-size: 14px;
+  }
+`
+
 const SORT_FIELD = {
   feeTier: 'feeTier',
   volumeUSD: 'volumeUSD',
@@ -65,6 +75,24 @@ const SORT_FIELD = {
   volumeUSDWeek: 'volumeUSDWeek',
   volumeAverage: 'volumeAverage',
   multiplier: 'multiplier',
+}
+
+const getMultiplier = (feeTier: string, volume: number, tvlUSD: number) => {
+  // Calculando o Multiplier baseado nos outros volumes
+  const result: number = volume / tvlUSD
+  let multiplier: number | string = 0
+
+  if (feeTier === '1000') {
+    multiplier = result * 20
+  } else if (feeTier === '3000') {
+    multiplier = result * 6
+  } else if (feeTier === '500') {
+    multiplier = result
+  } else if (feeTier === '100') {
+    multiplier = result
+  }
+
+  return parseFloat(multiplier.toString()).toPrecision(3).toString()
 }
 
 const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
@@ -80,6 +108,7 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
         <LocalLoader fill={true} />
       ) : (
         <LinkWrapper to={networkPrefix(activeNetwork) + 'pools/' + poolData.address}>
+          <ReactTooltip />
           <ResponsiveGrid>
             <Label fontWeight={400}>{index + 1}</Label>
             <Label fontWeight={400}>
@@ -93,21 +122,26 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
                 </GreyBadge>
               </RowFixed>
             </Label>
-            <Label end={1} fontWeight={400}>
-              {formatDollarAmount(poolData.tvlUSD)}
-            </Label>
-            <Label end={1} fontWeight={400}>
-              {formatDollarAmount(poolData.volumeUSD)}
-            </Label>
-            <Label end={1} fontWeight={400}>
-              {formatDollarAmount(poolData.volumeUSDWeek)}
-            </Label>
-            <Label end={1} fontWeight={400}>
-              {formatDollarAmount(poolData.volumeAverage)}
-            </Label>
-            <Label end={1} fontWeight={400}>
-              {poolData.multiplier}
-            </Label>
+            <Label fontWeight={400}>{formatDollarAmount(poolData.tvlUSD)}</Label>
+            <div>
+              <Label fontWeight={400}>{formatDollarAmount(poolData.volumeUSD)}</Label>
+              <SpanSmall data-tip="Multiplicador Volume 24H">
+                ({getMultiplier(poolData.feeTier.toString(), poolData.volumeUSD, poolData.tvlUSD)})
+              </SpanSmall>
+            </div>
+            <div>
+              <Label fontWeight={400}>{formatDollarAmount(poolData.volumeUSDWeek)}</Label>
+              <SpanSmall data-tip="Multiplicador Volume 7D">
+                ({getMultiplier(poolData.feeTier.toString(), poolData.volumeUSDWeek, poolData.tvlUSD)})
+              </SpanSmall>
+            </div>
+            <div>
+              <Label fontWeight={400}>{formatDollarAmount(poolData.volumeAverage)}</Label>
+              <SpanSmall data-tip="Multiplicador Média Diária">
+                ({getMultiplier(poolData.feeTier.toString(), poolData.volumeAverage, poolData.tvlUSD)})
+              </SpanSmall>
+            </div>
+            <Label fontWeight={400}>{poolData.multiplier}</Label>
           </ResponsiveGrid>
         </LinkWrapper>
       )}
@@ -192,20 +226,20 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
                 <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.feeTier)}>
                   Pool {arrow(SORT_FIELD.feeTier)}
                 </ClickableText>
-                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
+                <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
                   TVL {arrow(SORT_FIELD.tvlUSD)}
                 </ClickableText>
-                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSD)}>
+                <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.volumeUSD)}>
                   Volume 24H {arrow(SORT_FIELD.volumeUSD)}
                 </ClickableText>
-                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeUSDWeek)}>
+                <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.volumeUSDWeek)}>
                   Volume 7D {arrow(SORT_FIELD.volumeUSDWeek)}
                 </ClickableText>
-                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.volumeAverage)}>
-                  Volume Average {arrow(SORT_FIELD.volumeAverage)}
+                <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.volumeAverage)}>
+                  Média Diária {arrow(SORT_FIELD.volumeAverage)}
                 </ClickableText>
-                <ClickableText color={theme.text2} end={1} onClick={() => handleSort(SORT_FIELD.multiplier)}>
-                  Multiplier {arrow(SORT_FIELD.multiplier)}
+                <ClickableText color={theme.text2} onClick={() => handleSort(SORT_FIELD.multiplier)}>
+                  Multiplicador V24H {arrow(SORT_FIELD.multiplier)}
                 </ClickableText>
               </ResponsiveGrid>
               <Break />
@@ -229,7 +263,7 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
                 >
                   <Arrow faded={page === 1 ? true : false}>←</Arrow>
                 </div>
-                <TYPE.body>{'Page ' + page + ' of ' + maxPage}</TYPE.body>
+                <TYPE.body>{'Página ' + page + ' de ' + maxPage}</TYPE.body>
                 <div
                   onClick={() => {
                     setPage(page === maxPage ? page : page + 1)
